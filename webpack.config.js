@@ -13,7 +13,10 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [
+          "style-loader",
+          { loader: "css-loader", options: { modules: true } },
+        ],
       },
       {
         test: /\.jsx?$/,
@@ -31,5 +34,6 @@ module.exports = {
     contentBase: path.resolve(__dirname, "dist"),
     liveReload: true,
     port: 9000,
+    writeToDisk: true,
   },
 };
