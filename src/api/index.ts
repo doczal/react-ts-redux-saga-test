@@ -8,7 +8,7 @@ export function apiGetImages() {
 }
 
 // Helpers
-function createEndpoint(
+export function createEndpoint(
   url: string,
   path: string,
   params: Record<string, any>
@@ -24,11 +24,10 @@ function createEndpoint(
       queryStr += key + "=" + encodeURIComponent(params[key]);
     }
   }
-  console.log(newUrl + queryStr);
   return newUrl + queryStr;
 }
 
-function fetchApi(
+export function fetchApi(
   path: string,
   method: httpMethod = "GET",
   body?: Record<string, any>,

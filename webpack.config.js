@@ -18,14 +18,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
         use: ["babel-loader"],
-      },
-      {
-        test: /\.tsx?$/,
-        use: ["ts-loader"],
-        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -43,4 +38,5 @@ module.exports = {
     port: 9000,
     writeToDisk: true,
   },
+  devtool: "inline-source-map",
 };
