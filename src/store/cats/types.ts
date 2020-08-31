@@ -1,12 +1,34 @@
+export interface CatImage {
+  breeds: string[];
+  id: string;
+  url: string;
+  width: number;
+  height: number;
+}
+
 export interface CatState {
-  categories: string[];
+  images: CatImage[];
   isLoading: boolean;
 }
 
-export const GET_CATEGORIES = "cats/GET_CATEGORIES";
+export const GET_IMAGES = "cats/GET_IMAGES";
+export const GET_IMAGES_SUCCESS = "cats/GET_IMAGES_SUCCESS";
+export const GET_IMAGES_FAILURE = "cats/GET_IMAGES_FAILURE";
 
-interface GetCategoriesAction {
-  type: typeof GET_CATEGORIES;
+interface GetImagesAction {
+  type: typeof GET_IMAGES;
 }
 
-export type CatActionTypes = GetCategoriesAction;
+interface GetImagesSuccessAction {
+  type: typeof GET_IMAGES_SUCCESS;
+  payload: CatImage[];
+}
+
+interface GetImagesFailureAction {
+  type: typeof GET_IMAGES_FAILURE;
+}
+
+export type CatActionTypes =
+  | GetImagesAction
+  | GetImagesSuccessAction
+  | GetImagesFailureAction;

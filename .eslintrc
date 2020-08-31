@@ -18,5 +18,16 @@
   "env": {
     "browser": true,
     "node": true
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["components", "./src/components"],
+          ["catActions", "./src/store/cats/actions"]
+        ],
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
+      }
+    }
   }
 }
