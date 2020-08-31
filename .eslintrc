@@ -24,6 +24,7 @@
       "alias": {
         "map": [
           ["components", "./src/components"],
+          ["api", "./src/api"],
           ["catActions", "./src/store/cats/actions"]
         ],
         "extensions": [".ts", ".tsx", ".js", ".jsx"]

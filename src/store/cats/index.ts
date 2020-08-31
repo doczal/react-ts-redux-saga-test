@@ -11,7 +11,10 @@ const initialState: CatState = {
   isLoading: false,
 };
 
-export default function reducer(state = initialState, action: CatActionTypes) {
+export default function reducer(
+  state = initialState,
+  action: CatActionTypes
+): CatState {
   switch (action.type) {
     case GET_IMAGES:
       return {
@@ -22,7 +25,7 @@ export default function reducer(state = initialState, action: CatActionTypes) {
       return {
         ...state,
         isLoading: false,
-        images: "lol", // why not type checking?
+        images: action.payload,
       };
     case GET_IMAGES_FAILURE:
       return {

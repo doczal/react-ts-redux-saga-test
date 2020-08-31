@@ -12,7 +12,8 @@
     "moduleResolution": "node",
     "paths": {
       "components/*": ["src/components/*"],
-      "catActions": ["src/store/cats/actions"]
+      "catActions": ["src/store/cats/actions"],
+      "api": ["src/api"]
     }
   },
   "include": ["src"],

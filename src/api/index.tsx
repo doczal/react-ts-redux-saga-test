@@ -3,8 +3,8 @@ const apiKey = `${process.env.API_KEY}`;
 type httpMethod = "GET" | "POST" | "DEL";
 
 // Endpoints
-export function getCategories() {
-  return fetchApi("categories");
+export function apiGetImages() {
+  return fetchApi("images/search", "GET", undefined, { limit: 5 });
 }
 
 // Helpers
@@ -14,16 +14,18 @@ function createEndpoint(
   params: Record<string, any>
 ) {
   let newUrl = `${url}/${path}`;
-  if (params.length > 0) {
+  let queryStr = "";
+  if (Object.keys(params).length > 0) {
     newUrl += "?";
     for (const key in params) {
-      if (newUrl !== "") {
-        newUrl += "&";
+      if (queryStr !== "") {
+        queryStr += "&";
       }
-      newUrl += key + "=" + encodeURIComponent(params[key]);
+      queryStr += key + "=" + encodeURIComponent(params[key]);
     }
   }
-  return newUrl;
+  console.log(newUrl + queryStr);
+  return newUrl + queryStr;
 }
 
 function fetchApi(
@@ -40,5 +42,11 @@ function fetchApi(
       "x-api-key": apiKey,
     },
     body: JSON.stringify(body),
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error("Network error");
+    }
   });
 }
