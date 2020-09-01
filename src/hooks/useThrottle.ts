@@ -1,30 +1,21 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useRef } from "react";
 
 const useThrottle = (
   callback: (...args: any[]) => void,
   delay: number
 ): ((...args: any[]) => void) => {
-  const [isThrottled, setIsThrottled] = useState(false);
-  useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
-    if (isThrottled) {
-      timeout = setTimeout(() => {
-        setIsThrottled(false);
-      }, delay);
-    }
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [isThrottled, delay]);
+  const timeout = useRef<ReturnType<typeof setTimeout>>(null);
 
   return useCallback(
     (...args) => {
-      if (!isThrottled) {
-        setIsThrottled(true);
+      if (!timeout.current) {
+        timeout.current = setTimeout(() => {
+          timeout.current = null;
+        }, delay);
         callback(...args);
       }
     },
-    [callback, isThrottled]
+    [callback, delay]
   );
 };
 
