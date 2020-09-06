@@ -2,68 +2,28 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getImages } from "catActions";
 import styles from "./style.module.css";
-import useThrottle from "../../hooks/useThrottle";
+import useTypedSelector from "hooks/useTypedSelector";
 
 const textArr = ["foo", "bar", "baz"];
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-
-  const [text, setText] = useState("yo");
-  const [bool, setBool] = useState(true);
-  const [color, setColor] = useState("yellow");
-
-  // const changeColor = useThrottle(
-  //   useCallback((color) => {
-  //     setColor(color);
-  //   }, []),
-  //   3000
-  // );
-
-  const changeColor = useThrottle((color) => {
-    setColor(color);
-  }, 3000);
-
-  const onClick = useThrottle(
-    useCallback(
-      (text) => {
-        if (bool) {
-          setText(text);
-        } else {
-          setText("NO!");
-        }
-      },
-      [bool]
-    ),
-    2000
-  );
+  const images = useTypedSelector((state) => state.cats.images);
+  const isLoading = useTypedSelector((state) => state.cats.isLoading);
+  const hasError = useTypedSelector((state) => state.cats.hasError);
 
   useEffect(() => {
-    console.log("changed!");
-  }, [changeColor]);
+    dispatch(getImages());
+  }, [dispatch]);
 
-  // const onClick = useCallback(
-  //   (text) => {
-  //     if (bool) {
-  //       setText(text);
-  //     } else {
-  //       setText("NO!");
-  //     }
-  //   },
-  //   [bool]
-  // );
   return (
-    <div className={styles.container} style={{ backgroundColor: color }}>
-      <h1 className={styles.title}>{text}</h1>
-      <button onClick={() => onClick((Math.random() * 100).toString())}>
-        click me
-      </button>
-      <button onClick={() => setBool(!bool)}>toggle</button>
-      <button
-        onClick={() => changeColor(color === "green" ? "yellow" : "green")}
-      >
-        color
-      </button>
+    <div className={styles.container}>
+      <h1 className={styles.title}>We love cats</h1>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        images.map((img) => <div key={img.id}>cat</div>)
+      )}
     </div>
   );
 };

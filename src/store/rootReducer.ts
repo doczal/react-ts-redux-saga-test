@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
 import catReducer from "./cats";
 
-export default combineReducers({
-  catReducer,
+const rootReducer = combineReducers({
+  cats: catReducer,
 });
+
+export default rootReducer;
+
+export type RootState = ReturnType<typeof rootReducer>;

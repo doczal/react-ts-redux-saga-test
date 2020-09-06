@@ -2,6 +2,9 @@ import {
   GET_IMAGES,
   GET_IMAGES_SUCCESS,
   GET_IMAGES_FAILURE,
+  POST_IMAGE,
+  POST_IMAGE_SUCCESS,
+  POST_IMAGE_FAILURE,
   CatActionTypes,
   CatState,
 } from "./types";
@@ -9,6 +12,7 @@ import {
 const initialState: CatState = {
   images: [],
   isLoading: false,
+  hasError: false,
 };
 
 export default function reducer(
@@ -20,6 +24,7 @@ export default function reducer(
       return {
         ...state,
         isLoading: true,
+        hasError: false,
       };
     case GET_IMAGES_SUCCESS:
       return {
@@ -31,6 +36,23 @@ export default function reducer(
       return {
         ...state,
         isLoading: false,
+        hasError: true,
+      };
+    case POST_IMAGE:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case POST_IMAGE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case POST_IMAGE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
       };
     default:
       return state;

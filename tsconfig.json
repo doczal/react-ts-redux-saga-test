@@ -13,6 +13,8 @@
     "paths": {
       "components/*": ["src/components/*"],
       "catActions": ["src/store/cats/actions"],
+      "catTypes": ["src/store/cats/types"],
+      "hooks/*": ["src/hooks/*"],
       "api": ["src/api"]
     }
   },

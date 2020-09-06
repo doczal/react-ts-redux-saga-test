@@ -25,7 +25,9 @@
         "map": [
           ["components", "./src/components"],
           ["api", "./src/api"],
-          ["catActions", "./src/store/cats/actions"]
+          ["catActions", "./src/store/cats/actions"],
+          ["catTypes", "./src/store/cats/types"],
+          ["hooks", "./src/hooks"]
         ],
         "extensions": [".ts", ".tsx", ".js", ".jsx"]
       }

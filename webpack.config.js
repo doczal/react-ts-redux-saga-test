@@ -12,6 +12,8 @@ module.exports = {
     alias: {
       components: path.resolve(__dirname, "src/components/"),
       catActions: path.resolve(__dirname, "src/store/cats/actions"),
+      catTypes: path.resolve(__dirname, "src/store/cats/types"),
+      hooks: path.resolve(__dirname, "src/hooks"),
       api: path.resolve(__dirname, "src/api"),
     },
   },
