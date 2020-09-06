@@ -39,6 +39,7 @@ module.exports = {
     liveReload: true,
     port: 9000,
     writeToDisk: true,
+    open: true,
   },
   devtool: "inline-source-map",
 };

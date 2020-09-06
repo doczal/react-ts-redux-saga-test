@@ -5,3 +5,9 @@
 .title {
   font-size: 2rem;
 }
+
+.tabContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
