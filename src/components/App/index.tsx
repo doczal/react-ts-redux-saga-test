@@ -5,6 +5,7 @@ import styles from "./style.module.css";
 import useTypedSelector from "hooks/useTypedSelector";
 import TabButton from "components/TabButton";
 import Gallery from "components/Gallery";
+import Header from "components/Header";
 import { CatImage } from "catTypes";
 
 type viewState = "DISPLAY" | "UPLOAD";
@@ -32,12 +33,17 @@ const App: React.FC = () => {
   const [viewState, setViewState] = useState<viewState>("DISPLAY");
 
   useEffect(() => {
-    dispatch(getImages());
+    // dispatch(getImages());
   }, [dispatch]);
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>We love cats</h1>
+      <Header
+        links={[
+          { title: "View Cats", path: "cats" },
+          { title: "Upload Image", path: "upload" },
+        ]}
+      />
       <div className={styles.tabContainer}>
         <TabButton
           onClick={() => setViewState("DISPLAY")}
