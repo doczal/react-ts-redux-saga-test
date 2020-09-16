@@ -40,6 +40,7 @@ module.exports = {
     port: 9000,
     writeToDisk: true,
     open: true,
+    historyApiFallback: true,
   },
   devtool: "inline-source-map",
 };
