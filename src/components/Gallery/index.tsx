@@ -1,4 +1,5 @@
 import React from "react";
+import GalleryItem from "components/GalleryItem";
 import styles from "./style.module.css";
 
 interface Image {
@@ -14,9 +15,7 @@ const Gallery = ({ images }: GalleryProps) => {
   return (
     <div className={styles.container}>
       {images.map((img) => (
-        <div key={img.id} className={styles.imgContainer}>
-          <img src={img.url} alt="" />
-        </div>
+        <GalleryItem key={img.id} url={img.url} />
       ))}
     </div>
   );

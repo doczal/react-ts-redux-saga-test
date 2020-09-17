@@ -20,7 +20,7 @@ const Header = ({ links, currPath }: HeaderProps) => {
   };
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>We Love Cats!</h1>
+      <h1 className={styles.title}>We Love Cats! 😻</h1>
       <nav className={styles.nav}>
         <ul>
           {links.map((link, idx) => (

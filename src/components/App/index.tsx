@@ -17,15 +17,6 @@ interface BodyProps {
   images: CatImage[];
 }
 
-const Body = ({ viewState, images }: BodyProps) => {
-  if (viewState === "DISPLAY") {
-    return <Gallery images={images} />;
-  } else if (viewState === "UPLOAD") {
-    return <div>Upload cat image</div>;
-  }
-  return null;
-};
-
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const images = useTypedSelector((state) => state.cats.images);
@@ -62,7 +53,18 @@ const App: React.FC = () => {
       ) : (
         <>
           <Route path="/">
-            <div>Homepage</div>
+            <Gallery
+              images={[
+                {
+                  id: "1",
+                  url: "https://cdn2.thecatapi.com/images/pcjMS8qNP.jpg",
+                },
+                {
+                  id: "2",
+                  url: "https://cdn2.thecatapi.com/images/wGjVbN_6z.jpg",
+                },
+              ]}
+            />
           </Route>
           <Route path="/upload">
             <div>Upload</div>

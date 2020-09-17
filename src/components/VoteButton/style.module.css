@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.voteBtn {
+  border: 1px dashed tomato;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.2s ease-in-out opacity;
+}
+
+.active,
+.voteBtn:hover {
+  opacity: 1;
+  background-color: tomato;
+  color: white;
+}
+
+.voteBtn:focus {
+  outline: 1px teal auto;
+}
