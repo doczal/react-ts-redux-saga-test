@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { getImages } from "catActions";
 import { getVotes } from "voteActions";
 import styles from "./style.module.css";
-import useTypedSelector from "hooks/useTypedSelector";
+
 import usePath from "hooks/usePath";
 import Gallery from "components/Gallery";
+import Upload from "components/Upload";
 import Header from "components/Header";
 import Route from "components/Route";
 import { CatImage } from "catTypes";
@@ -30,9 +31,6 @@ interface BodyProps {
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const images = useTypedSelector((state) => state.cats.images);
-  const isLoading = useTypedSelector((state) => state.cats.isLoading);
-  const hasError = useTypedSelector((state) => state.cats.hasError);
 
   const [viewState, setViewState] = useState<viewState>("DISPLAY");
 
@@ -48,7 +46,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(getVotes());
-    dispatch(getImages());
   }, [dispatch]);
 
   return (
@@ -60,18 +57,12 @@ const App: React.FC = () => {
           { title: "Upload Image", path: "/upload" },
         ]}
       />
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          <Route path="/">
-            <Gallery images={images} />
-          </Route>
-          <Route path="/upload">
-            <div>Upload</div>
-          </Route>
-        </>
-      )}
+      <Route path="/">
+        <Gallery />
+      </Route>
+      <Route path="/upload">
+        <Upload />
+      </Route>
     </div>
   );
 };

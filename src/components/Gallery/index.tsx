@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getImages } from "catActions";
 import GalleryItem from "components/GalleryItem";
 import styles from "./style.module.css";
-import { CatImage } from "catTypes";
+import useTypedSelector from "hooks/useTypedSelector";
 
-interface GalleryProps {
-  images: CatImage[];
-}
+const Gallery = () => {
+  const dispatch = useDispatch();
+  const images = useTypedSelector((state) => state.cats.images);
+  const isLoading = useTypedSelector((state) => state.cats.isLoading);
 
-const Gallery = ({ images }: GalleryProps) => {
+  useEffect(() => {
+    dispatch(getImages());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <div className={styles.container}>Loading...</div>;
+  }
   return (
     <div className={styles.container}>
       {images.map((img) => (
