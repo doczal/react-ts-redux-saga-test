@@ -1,14 +1,25 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getImages } from "catActions";
+import { getVotes } from "voteActions";
 import styles from "./style.module.css";
 import useTypedSelector from "hooks/useTypedSelector";
 import usePath from "hooks/usePath";
-import TabButton from "components/TabButton";
 import Gallery from "components/Gallery";
 import Header from "components/Header";
 import Route from "components/Route";
 import { CatImage } from "catTypes";
+
+const fakeImages = [
+  {
+    id: "1",
+    url: "https://cdn2.thecatapi.com/images/pcjMS8qNP.jpg",
+  },
+  {
+    id: "2",
+    url: "https://cdn2.thecatapi.com/images/wGjVbN_6z.jpg",
+  },
+];
 
 type viewState = "DISPLAY" | "UPLOAD";
 
@@ -36,7 +47,8 @@ const App: React.FC = () => {
   }, [currPath]);
 
   useEffect(() => {
-    // dispatch(getImages());
+    dispatch(getVotes());
+    dispatch(getImages());
   }, [dispatch]);
 
   return (
@@ -53,18 +65,7 @@ const App: React.FC = () => {
       ) : (
         <>
           <Route path="/">
-            <Gallery
-              images={[
-                {
-                  id: "1",
-                  url: "https://cdn2.thecatapi.com/images/pcjMS8qNP.jpg",
-                },
-                {
-                  id: "2",
-                  url: "https://cdn2.thecatapi.com/images/wGjVbN_6z.jpg",
-                },
-              ]}
-            />
+            <Gallery images={images} />
           </Route>
           <Route path="/upload">
             <div>Upload</div>

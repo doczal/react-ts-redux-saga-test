@@ -27,6 +27,8 @@
           ["api", "./src/api"],
           ["catActions", "./src/store/cats/actions"],
           ["catTypes", "./src/store/cats/types"],
+          ["voteActions", "./src/store/votes/actions"],
+          ["voteTypes", "./src/store/votes/types"],
           ["hooks", "./src/hooks"]
         ],
         "extensions": [".ts", ".tsx", ".js", ".jsx"]

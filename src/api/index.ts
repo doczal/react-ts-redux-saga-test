@@ -1,4 +1,5 @@
 import { CatImage } from "catTypes";
+import { PostVoteReq, PostVoteRes, VoteData } from "voteTypes";
 
 const apiUrl = `${process.env.API_URL}`;
 const apiKey = `${process.env.API_KEY}`;
@@ -18,11 +19,23 @@ export function apiGetImages() {
   });
 }
 
+export function apiGetVotes() {
+  return fetchApi<VoteData[]>("votes", "GET", undefined, { sub_id: subId });
+}
+
+export function apiPostVote(data: PostVoteReq) {
+  const body = {
+    ...data,
+    sub_id: subId,
+  };
+  return fetchApi<PostVoteRes>("votes", "POST", body);
+}
+
 // Helpers
 export function createEndpoint(
   url: string,
   path: string,
-  params: Record<string, any>
+  params: Record<string, any> = {}
 ) {
   let newUrl = `${url}/${path}`;
   let queryStr = "";
@@ -45,6 +58,7 @@ export async function fetchApi<T>(
   params?: Record<string, any>
 ): Promise<FetchApiRes<T>> {
   const url = createEndpoint(apiUrl, path, params);
+  console.log(url);
   try {
     const response = await fetch(url, {
       method: method,

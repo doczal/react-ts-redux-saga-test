@@ -1,9 +1,15 @@
+import { VoteVal } from "voteTypes";
+
 export interface CatImage {
   breeds: string[];
   id: string;
   url: string;
   width: number;
   height: number;
+  vote?: {
+    id: number;
+    value: VoteVal;
+  };
 }
 
 export interface CatState {

@@ -3,7 +3,7 @@ import { GET_IMAGES, CatImage } from "./types";
 import { getImagesFailure, getImagesSuccess } from "./actions";
 import { FetchApiRes, apiGetImages } from "api";
 
-export function* getImages() {
+export function* getImagesSaga() {
   const { data, error }: FetchApiRes<CatImage[]> = yield call(apiGetImages);
   console.log(data);
   if (error) {
@@ -13,6 +13,6 @@ export function* getImages() {
   }
 }
 
-export default function* questionsSaga() {
-  yield all([takeLatest(GET_IMAGES, getImages)]);
+export default function* catSaga() {
+  yield all([takeLatest(GET_IMAGES, getImagesSaga)]);
 }

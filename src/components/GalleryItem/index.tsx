@@ -1,12 +1,17 @@
 import React from "react";
+import useTypedSelector from "hooks/useTypedSelector";
 import VoteButton from "components/VoteButton";
 import styles from "./style.module.css";
+import { VoteVal } from "voteTypes";
+// import { Image as GalleryItemProps } from "components/Gallery";
 
 interface GalleryItemProps {
   url: string;
+  id: string;
+  voteVal: VoteVal;
 }
 
-const GalleryItem = ({ url }: GalleryItemProps) => {
+const GalleryItem = ({ url, id, voteVal }: GalleryItemProps) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -14,8 +19,8 @@ const GalleryItem = ({ url }: GalleryItemProps) => {
           <img className={styles.image} src={url} alt="cat" />
         </div>
         <div className={styles.voteBar}>
-          <VoteButton voteVal={null} voteType="UP" />
-          <VoteButton voteType="DOWN" />
+          <VoteButton voteVal={voteVal} imageId={id} voteType="UP" />
+          <VoteButton voteVal={voteVal} imageId={id} voteType="DOWN" />
         </div>
       </div>
     </div>

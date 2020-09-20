@@ -9,6 +9,8 @@ import {
   CatState,
 } from "./types";
 
+import { PostVoteSuccessAction, POST_VOTE_SUCCESS } from "voteTypes";
+
 const initialState: CatState = {
   images: [],
   isLoading: false,
@@ -17,7 +19,7 @@ const initialState: CatState = {
 
 export default function reducer(
   state = initialState,
-  action: CatActionTypes
+  action: CatActionTypes | PostVoteSuccessAction
 ): CatState {
   switch (action.type) {
     case GET_IMAGES:
@@ -54,6 +56,21 @@ export default function reducer(
         isLoading: false,
         hasError: true,
       };
+    case POST_VOTE_SUCCESS: {
+      const { imageId, voteVal, voteId } = action.payload;
+      return {
+        ...state,
+        images: state.images.map((img) => {
+          if (img.id === imageId) {
+            return {
+              ...img,
+              vote: { id: voteId, value: voteVal },
+            };
+          }
+          return img;
+        }),
+      };
+    }
     default:
       return state;
   }

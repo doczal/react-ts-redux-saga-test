@@ -1,21 +1,22 @@
 import React from "react";
 import GalleryItem from "components/GalleryItem";
 import styles from "./style.module.css";
-
-interface Image {
-  url: string;
-  id: string;
-}
+import { CatImage } from "catTypes";
 
 interface GalleryProps {
-  images: Image[];
+  images: CatImage[];
 }
 
 const Gallery = ({ images }: GalleryProps) => {
   return (
     <div className={styles.container}>
       {images.map((img) => (
-        <GalleryItem key={img.id} url={img.url} />
+        <GalleryItem
+          key={img.id}
+          id={img.id}
+          url={img.url}
+          voteVal={img.vote?.value}
+        />
       ))}
     </div>
   );
