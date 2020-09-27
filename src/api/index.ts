@@ -28,7 +28,14 @@ export function apiPostVote(data: PostVoteReq) {
     ...data,
     sub_id: subId,
   };
-  return fetchApi<PostVoteRes>("votes", "POST", body);
+  return fetchApi<PostVoteRes>("votes", "POST", JSON.stringify(body));
+}
+
+export function apiPostImage(image: File) {
+  const formData = new FormData();
+  formData.append("file", image);
+  formData.append("sub_id", subId);
+  return fetchApi("images/upload", "POST", formData);
 }
 
 // Helpers
@@ -51,24 +58,32 @@ export function createEndpoint(
   return newUrl + queryStr;
 }
 
+function isFormData(val: BodyInit) {
+  return (val as FormData).append !== undefined;
+}
+
 export async function fetchApi<T>(
   path: string,
   method: httpMethod = "GET",
-  body?: Record<string, any>,
+  body?: BodyInit,
   params?: Record<string, any>
 ): Promise<FetchApiRes<T>> {
   const url = createEndpoint(apiUrl, path, params);
-  console.log(url);
+  const headersObj: HeadersInit = {
+    "x-api-key": apiKey,
+  };
+  if (body && !isFormData(body)) {
+    headersObj["Content-Type"] = "application/json";
+  }
   try {
     const response = await fetch(url, {
       method: method,
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-      },
-      body: JSON.stringify(body),
+      headers: headersObj,
+      body,
     });
-    console.log(response);
+    if (!response.status.toString().startsWith("2")) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
     const data = await response.json();
     return {
       data,

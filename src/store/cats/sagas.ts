@@ -1,7 +1,12 @@
 import { call, put, takeLatest, select, all, delay } from "redux-saga/effects";
-import { GET_IMAGES, CatImage } from "./types";
-import { getImagesFailure, getImagesSuccess } from "./actions";
-import { FetchApiRes, apiGetImages } from "api";
+import { GET_IMAGES, POST_IMAGE, CatImage, PostImageAction } from "./types";
+import {
+  getImagesFailure,
+  getImagesSuccess,
+  postImageSuccess,
+  postImageFailure,
+} from "./actions";
+import { FetchApiRes, apiGetImages, apiPostImage } from "api";
 
 export function* getImagesSaga() {
   const { data, error }: FetchApiRes<CatImage[]> = yield call(apiGetImages);
@@ -13,6 +18,21 @@ export function* getImagesSaga() {
   }
 }
 
+export function* postImageSaga({ payload }: PostImageAction) {
+  const { data, error }: FetchApiRes<unknown> = yield call(
+    apiPostImage,
+    payload
+  );
+  if (error) {
+    yield put(postImageFailure());
+  } else {
+    yield put(postImageSuccess());
+  }
+}
+
 export default function* catSaga() {
-  yield all([takeLatest(GET_IMAGES, getImagesSaga)]);
+  yield all([
+    takeLatest(GET_IMAGES, getImagesSaga),
+    takeLatest(POST_IMAGE, postImageSaga),
+  ]);
 }

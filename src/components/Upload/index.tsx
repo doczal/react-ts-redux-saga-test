@@ -1,7 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { postImage } from "catActions";
 import styles from "./style.module.css";
 
 const Upload = () => {
+  const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fileToUpload, setFileToUpload] = useState<File>(null);
   const [imgPreviewUrl, setImgPreviewUrl] = useState<string>(null);
@@ -9,14 +12,22 @@ const Upload = () => {
   // useEffect(() => {}, []);
 
   const handleFileUpload = () => {
-    const theFile = fileInputRef.current.files[0];
-    const previewUrl = URL.createObjectURL(theFile);
-    setFileToUpload(theFile);
-    setImgPreviewUrl(previewUrl);
+    if (fileInputRef.current.files.length) {
+      const theFile = fileInputRef.current.files[0];
+      const previewUrl = URL.createObjectURL(theFile);
+      setFileToUpload(theFile);
+      setImgPreviewUrl(previewUrl);
+    }
   };
 
   const handleUploadClick = () => {
     fileInputRef.current.click();
+  };
+
+  const handleSubmit = () => {
+    if (fileToUpload) {
+      dispatch(postImage(fileToUpload));
+    }
   };
 
   const uploadText = fileToUpload?.name || "You have not chosen a cat pic :(";
@@ -42,6 +53,11 @@ const Upload = () => {
         <button onClick={handleUploadClick} className={styles.uploadBtn}>
           {fileToUpload ? "Choose a different one" : "Upload"}
         </button>
+        {fileToUpload && (
+          <button onClick={handleSubmit} className={styles.submitBtn}>
+            Submit!
+          </button>
+        )}
         <p className={styles.note}>{uploadText}</p>
         {fileToUpload && (
           <p className={styles.fileSizeText}>

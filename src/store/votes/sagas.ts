@@ -16,7 +16,6 @@ import { FetchApiRes, apiGetVotes, apiPostVote } from "api";
 
 function* getVotesSaga() {
   const { data, error }: FetchApiRes<VoteData[]> = yield call(apiGetVotes);
-  console.log(data);
   if (error) {
     yield put(getVotesFailure());
   } else {

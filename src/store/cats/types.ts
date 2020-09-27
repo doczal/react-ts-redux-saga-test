@@ -38,8 +38,9 @@ interface GetImagesFailureAction {
   type: typeof GET_IMAGES_FAILURE;
 }
 
-interface PostImageAction {
+export interface PostImageAction {
   type: typeof POST_IMAGE;
+  payload: File;
 }
 
 interface PostImageSuccessAction {

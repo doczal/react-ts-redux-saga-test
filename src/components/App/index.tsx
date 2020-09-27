@@ -44,9 +44,9 @@ const App: React.FC = () => {
     }
   }, [currPath]);
 
-  useEffect(() => {
-    dispatch(getVotes());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getVotes());
+  // }, [dispatch]);
 
   return (
     <div className={styles.container}>

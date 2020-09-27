@@ -11,8 +11,10 @@ const Gallery = () => {
   const isLoading = useTypedSelector((state) => state.cats.isLoading);
 
   useEffect(() => {
-    dispatch(getImages());
-  }, [dispatch]);
+    if (images.length < 1) {
+      dispatch(getImages());
+    }
+  }, [dispatch, images]);
 
   if (isLoading) {
     return <div className={styles.container}>Loading...</div>;

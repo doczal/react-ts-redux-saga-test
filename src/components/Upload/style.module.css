@@ -1,7 +1,7 @@
 .container {
   width: 100%;
   max-width: 800px;
-  margin: 1rem auto 0;
+  margin: 2rem auto 0;
   padding: 0 1rem;
 }
 
@@ -62,8 +62,22 @@
   transition: 0.2s ease-in-out background-color;
 }
 
+.submitBtn {
+  display: block;
+  margin: 0.5rem auto 0;
+  background-color: rgb(187, 248, 187);
+  border: 1px dashed mediumspringgreen;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  transition: 0.2s ease-in-out background-color;
+}
+
 .uploadBtn:hover {
   background-color: gold;
+}
+
+.submitBtn:hover {
+  background-color: mediumspringgreen;
 }
 
 .note {
