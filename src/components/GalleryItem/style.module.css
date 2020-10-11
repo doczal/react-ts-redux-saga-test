@@ -4,9 +4,18 @@
 }
 
 .container {
+  position: relative;
   background-color: white;
   padding: 1rem;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(40%, -40%);
+  z-index: 10;
 }
 
 .aspRatio {

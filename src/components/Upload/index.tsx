@@ -1,10 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { postImage } from "catActions";
+import useTypedSelector from "hooks/useTypedSelector";
 import styles from "./style.module.css";
 
 const Upload = () => {
   const dispatch = useDispatch();
+  const isLoading = useTypedSelector((state) => state.cats.isLoading);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fileToUpload, setFileToUpload] = useState<File>(null);
   const [imgPreviewUrl, setImgPreviewUrl] = useState<string>(null);
@@ -25,7 +27,7 @@ const Upload = () => {
   };
 
   const handleSubmit = () => {
-    if (fileToUpload) {
+    if (fileToUpload && !isLoading) {
       dispatch(postImage(fileToUpload));
     }
   };
@@ -55,7 +57,7 @@ const Upload = () => {
         </button>
         {fileToUpload && (
           <button onClick={handleSubmit} className={styles.submitBtn}>
-            Submit!
+            {isLoading ? "Submitting..." : "Submit!"}
           </button>
         )}
         <p className={styles.note}>{uploadText}</p>

@@ -4,7 +4,7 @@ import { PostVoteReq, PostVoteRes, VoteData } from "voteTypes";
 const apiUrl = `${process.env.API_URL}`;
 const apiKey = `${process.env.API_KEY}`;
 const subId = `${process.env.SUB_ID}`;
-type httpMethod = "GET" | "POST" | "DEL";
+type httpMethod = "GET" | "POST" | "DELETE";
 
 export interface FetchApiRes<T> {
   data: T;
@@ -14,7 +14,7 @@ export interface FetchApiRes<T> {
 // Endpoints
 export function apiGetImages() {
   return fetchApi<CatImage[]>("images", "GET", undefined, {
-    limit: 4,
+    limit: 8,
     sub_id: subId,
   });
 }
@@ -36,6 +36,10 @@ export function apiPostImage(image: File) {
   formData.append("file", image);
   formData.append("sub_id", subId);
   return fetchApi("images/upload", "POST", formData);
+}
+
+export function apiDeleteImage(imageId: string) {
+  return fetchApi(`images/${imageId}`, "DELETE");
 }
 
 // Helpers
@@ -81,10 +85,17 @@ export async function fetchApi<T>(
       headers: headersObj,
       body,
     });
+    console.log("res", response);
     if (!response.status.toString().startsWith("2")) {
       throw new Error(`Request failed with status ${response.status}`);
     }
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      data = null;
+    }
+    console.log("data", data);
     return {
       data,
       error: false,

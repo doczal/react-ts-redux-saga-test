@@ -24,6 +24,9 @@ export const GET_IMAGES_FAILURE = "cats/GET_IMAGES_FAILURE";
 export const POST_IMAGE = "cats/POST_IMAGE";
 export const POST_IMAGE_SUCCESS = "cats/POST_IMAGE_SUCCESS";
 export const POST_IMAGE_FAILURE = "cats/POST_IMAGE_FAILURE";
+export const DELETE_IMAGE = "cats/DELETE_IMAGE";
+export const DELETE_IMAGE_SUCCESS = "cats/DELETE_IMAGE_SUCCESS";
+export const DELETE_IMAGE_FAILURE = "cats/DELETE_IMAGE_FAILURE";
 
 interface GetImagesAction {
   type: typeof GET_IMAGES;
@@ -51,10 +54,27 @@ interface PostImageFailureAction {
   type: typeof POST_IMAGE_FAILURE;
 }
 
+export interface DeleteImageAction {
+  type: typeof DELETE_IMAGE;
+  payload: string;
+}
+
+interface DeleteImageSuccessAction {
+  type: typeof DELETE_IMAGE_SUCCESS;
+  payload: string;
+}
+
+interface DeleteImageFailureAction {
+  type: typeof DELETE_IMAGE_FAILURE;
+}
+
 export type CatActionTypes =
   | GetImagesAction
   | GetImagesSuccessAction
   | GetImagesFailureAction
   | PostImageAction
   | PostImageSuccessAction
-  | PostImageFailureAction;
+  | PostImageFailureAction
+  | DeleteImageAction
+  | DeleteImageSuccessAction
+  | DeleteImageFailureAction;

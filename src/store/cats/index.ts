@@ -5,6 +5,9 @@ import {
   POST_IMAGE,
   POST_IMAGE_SUCCESS,
   POST_IMAGE_FAILURE,
+  DELETE_IMAGE,
+  DELETE_IMAGE_SUCCESS,
+  DELETE_IMAGE_FAILURE,
   CatActionTypes,
   CatState,
 } from "./types";
@@ -44,6 +47,7 @@ export default function reducer(
       return {
         ...state,
         isLoading: true,
+        hasError: false,
       };
     case POST_IMAGE_SUCCESS:
       return {
@@ -51,6 +55,24 @@ export default function reducer(
         isLoading: false,
       };
     case POST_IMAGE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+      };
+    case DELETE_IMAGE:
+      return {
+        ...state,
+        isLoading: true,
+        hasError: false,
+      };
+    case DELETE_IMAGE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        images: state.images.filter((img) => img.id !== action.payload),
+      };
+    case DELETE_IMAGE_FAILURE:
       return {
         ...state,
         isLoading: false,
